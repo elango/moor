@@ -211,7 +211,7 @@ class JoinedSelectStatement<FirstT extends HasResultSet, FirstD>
       } catch (e, s) {
         final foundTables = <String>{};
         for (final table in _queriedTables()) {
-          if (!foundTables.add(table.entityName)) {
+          if (!foundTables.add(table.entityColName)) {
             _warnAboutDuplicate(e, s, table);
           }
         }
@@ -251,7 +251,7 @@ class JoinedSelectStatement<FirstT extends HasResultSet, FirstD>
   void _warnAboutDuplicate(
       dynamic cause, StackTrace trace, ResultSetImplementation table) {
     throw MoorWrappedException(
-      message: 'This query contained the table ${table.entityName} more than '
+      message: 'This query contained the table ${table.entityColName} more than '
           'once. Is this a typo? \n'
           'If you need a join that includes the same table more than once, you '
           'need to alias() at least one table. See https://moor.simonbinder.eu/queries/joins#aliases '

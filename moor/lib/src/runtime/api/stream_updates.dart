@@ -139,7 +139,7 @@ abstract class TableUpdateQuery {
   factory TableUpdateQuery.onTable(ResultSetImplementation table,
       {UpdateKind? limitUpdateKind}) {
     return TableUpdateQuery.onTableName(
-      table.entityName,
+      table.entityColName,
       limitUpdateKind: limitUpdateKind,
     );
   }

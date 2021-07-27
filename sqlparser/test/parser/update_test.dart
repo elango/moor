@@ -45,7 +45,7 @@ void main() {
             expression: BinaryExpression(
               Reference(columnName: 'quantity'),
               token(TokenType.minus),
-              Reference(entityName: 'daily', columnName: 'amt'),
+              Reference(entityColName: 'daily', columnName: 'amt'),
             ),
           ),
         ],
@@ -73,9 +73,9 @@ void main() {
           as: 'daily',
         ),
         where: BinaryExpression(
-          Reference(entityName: 'inventory', columnName: 'itemId'),
+          Reference(entityColName: 'inventory', columnName: 'itemId'),
           token(TokenType.equal),
-          Reference(entityName: 'daily', columnName: 'itemId'),
+          Reference(entityColName: 'daily', columnName: 'itemId'),
         ),
       ),
     );

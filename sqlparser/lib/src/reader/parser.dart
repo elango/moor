@@ -783,13 +783,13 @@ class Parser {
             _consumeIdentifier('Expected a column name here', lenient: true);
         return Reference(
           schemaName: first.identifier,
-          entityName: second.identifier,
+          entityColName: second.identifier,
           columnName: third.identifier,
         )..setSpan(first, third);
       } else {
         // Two identifiers only, so we have a table-based reference
         return Reference(
-          entityName: first.identifier,
+          entityColName: first.identifier,
           columnName: second.identifier,
         )..setSpan(first, second);
       }

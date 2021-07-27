@@ -10,22 +10,22 @@ part of '../ast.dart';
 class Reference extends Expression with ReferenceOwner {
   /// An optional schema name.
   ///
-  /// When this is non-null, [entityName] will not be null either.
+  /// When this is non-null, [entityColName] will not be null either.
   final String? schemaName;
 
   /// Entity can be either a table or a view.
-  final String? entityName;
+  final String? entityColName;
   final String columnName;
 
-  /// The resolved result set from the [entityName].
+  /// The resolved result set from the [entityColName].
   ResultSetAvailableInStatement? resultEntity;
 
   Column? get resolvedColumn => resolved as Column?;
 
-  Reference({this.entityName, this.schemaName, required this.columnName})
+  Reference({this.entityColName, this.schemaName, required this.columnName})
       : assert(
-          entityName != null || schemaName == null,
-          'When setting a schemaName, entityName must not be null either.',
+          entityColName != null || schemaName == null,
+          'When setting a schemaName, entityColName must not be null either.',
         );
 
   @override
@@ -46,8 +46,8 @@ class Reference extends Expression with ReferenceOwner {
     if (schemaName != null) {
       result..write(schemaName)..write('.');
     }
-    if (entityName != null) {
-      result..write(entityName)..write('.');
+    if (entityColName != null) {
+      result..write(entityColName)..write('.');
     }
     result.write(columnName);
 

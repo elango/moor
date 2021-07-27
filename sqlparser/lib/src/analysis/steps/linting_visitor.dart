@@ -160,7 +160,7 @@ class LintingVisitor extends RecursiveVisitor<void, void> {
       // Primary key clauses may only include simple columns
       for (final column in e.columns) {
         final expr = column.expression;
-        if (expr is! Reference || expr.entityName != null) {
+        if (expr is! Reference || expr.entityColName != null) {
           context.reportError(AnalysisError(
             type: AnalysisErrorType.synctactic,
             message: 'Only column names can be used in a PRIMARY KEY clause',

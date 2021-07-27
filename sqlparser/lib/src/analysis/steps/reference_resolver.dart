@@ -50,17 +50,17 @@ class ReferenceResolver extends RecursiveVisitor<void, void> {
 
     final scope = e.scope;
 
-    if (e.entityName != null) {
+    if (e.entityColName != null) {
       // first find the referenced table or view,
       // then use the column on that table or view.
       final entityResolver =
-          scope.resolve<ResultSetAvailableInStatement>(e.entityName!);
+          scope.resolve<ResultSetAvailableInStatement>(e.entityColName!);
       final resultSet = entityResolver?.resultSet.resultSet;
 
       if (resultSet == null) {
         context.reportError(AnalysisError(
           type: AnalysisErrorType.referencedUnknownTable,
-          message: 'Unknown table or view: ${e.entityName}',
+          message: 'Unknown table or view: ${e.entityColName}',
           relevantNode: e,
         ));
       } else {

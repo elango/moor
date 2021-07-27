@@ -86,7 +86,7 @@ void main() {
         onTable: TableReference('tbl'),
         when: IsExpression(
           false,
-          Reference(entityName: 'new', columnName: 'foo'),
+          Reference(entityColName: 'new', columnName: 'foo'),
           NullLiteral(token(TokenType.$null)),
         ),
         action: _block,

@@ -18,20 +18,20 @@ void main() {
         ),
         then: IsExpression(
           true,
-          Reference(entityName: 'n', columnName: 'nextReviewTime'),
+          Reference(entityColName: 'n', columnName: 'nextReviewTime'),
           NullLiteral(token(TokenType.$null)),
         ),
       ),
     ],
     elseExpr: IsExpression(
       false,
-      Reference(entityName: 'n', columnName: 'nextReviewTime'),
+      Reference(entityColName: 'n', columnName: 'nextReviewTime'),
       NullLiteral(token(TokenType.$null)),
     ),
   );
 
   final folderExpr = BinaryExpression(
-    Reference(entityName: 'n', columnName: 'folderId'),
+    Reference(entityColName: 'n', columnName: 'folderId'),
     token(TokenType.equal),
     ColonNamedVariable(_colon(':selectedFolderId')),
   );

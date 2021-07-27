@@ -193,10 +193,10 @@ final Map<String, Expression> _testCases = {
   "RAISE(ROLLBACK, 'Not allowed')":
       RaiseExpression(RaiseKind.rollback, 'Not allowed'),
   'foo': Reference(columnName: 'foo'),
-  'foo.bar': Reference(entityName: 'foo', columnName: 'bar'),
+  'foo.bar': Reference(entityColName: 'foo', columnName: 'bar'),
   'foo.bar.baz': Reference(
     schemaName: 'foo',
-    entityName: 'bar',
+    entityColName: 'bar',
     columnName: 'baz',
   ),
 };

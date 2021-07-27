@@ -34,14 +34,14 @@ mixin TableInfo<TableDsl extends Table, D> on Table
   String get $tableName => aliasedName;
 
   @override
-  String get aliasedName => entityName;
+  String get aliasedName => entityColName;
 
   /// The name of the table in the database. Unless [$tableName], this can not
   /// be aliased.
   String get actualTableName;
 
   @override
-  String get entityName => actualTableName;
+  String get entityColName => actualTableName;
 
   Map<String, GeneratedColumn>? _columnsByName;
 

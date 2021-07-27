@@ -309,7 +309,7 @@ class Migrator {
 
   /// Drops a table, trigger or index.
   Future<void> drop(DatabaseSchemaEntity entity) async {
-    final escapedName = escapeIfNeeded(entity.entityName);
+    final escapedName = escapeIfNeeded(entity.entityColName);
 
     String kind;
 

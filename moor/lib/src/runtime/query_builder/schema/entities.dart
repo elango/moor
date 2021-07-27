@@ -4,7 +4,7 @@ part of '../query_builder.dart';
 /// tables, triggers, views, indexes, etc.
 abstract class DatabaseSchemaEntity {
   /// The (unalised) name of this entity in the database.
-  String get entityName;
+  String get entityColName;
 }
 
 /// A sqlite trigger that's executed before, after or instead of a subset of
@@ -21,11 +21,11 @@ class Trigger extends DatabaseSchemaEntity {
   /// trigger.
   final String createTriggerStmt;
   @override
-  final String entityName;
+  final String entityColName;
 
   /// Creates a trigger representation by the [createTriggerStmt] and its
-  /// [entityName]. Mainly used by generated code.
-  Trigger(this.createTriggerStmt, this.entityName);
+  /// [entityColName]. Mainly used by generated code.
+  Trigger(this.createTriggerStmt, this.entityColName);
 }
 
 /// A sqlite index on columns or expressions.
@@ -37,14 +37,14 @@ class Trigger extends DatabaseSchemaEntity {
 /// [sql-tut]: https://www.sqlitetutorial.net/sqlite-index/
 class Index extends DatabaseSchemaEntity {
   @override
-  final String entityName;
+  final String entityColName;
 
   /// The `CREATE INDEX` sql statement that can be used to create this index.
   final String createIndexStmt;
 
-  /// Creates an index model by the [createIndexStmt] and its [entityName].
+  /// Creates an index model by the [createIndexStmt] and its [entityColName].
   /// Mainly used by generated code.
-  Index(this.entityName, this.createIndexStmt);
+  Index(this.entityColName, this.createIndexStmt);
 }
 
 /// A sqlite view.
@@ -59,14 +59,14 @@ class Index extends DatabaseSchemaEntity {
 abstract class View<Self, Row> extends ResultSetImplementation<Self, Row>
     implements HasResultSet {
   @override
-  final String entityName;
+  final String entityColName;
 
   /// The `CREATE VIEW` sql statement that can be used to create this view.
   final String createViewStmt;
 
-  /// Creates an view model by the [createViewStmt] and its [entityName].
+  /// Creates an view model by the [createViewStmt] and its [entityColName].
   /// Mainly used by generated code.
-  View(this.entityName, this.createViewStmt);
+  View(this.entityColName, this.createViewStmt);
 }
 
 /// An internal schema entity to run an sql statement when the database is
@@ -89,7 +89,7 @@ class OnCreateQuery extends DatabaseSchemaEntity {
   OnCreateQuery(this.sql);
 
   @override
-  String get entityName => r'$internal$';
+  String get entityColName => r'$internal$';
 }
 
 /// Interface for schema entities that have a result set.
@@ -100,8 +100,8 @@ class OnCreateQuery extends DatabaseSchemaEntity {
 abstract class ResultSetImplementation<Tbl, Row> extends DatabaseSchemaEntity {
   /// The (potentially aliased) name of this table or view.
   ///
-  /// If no alias is active, this is the same as [entityName].
-  String get aliasedName => entityName;
+  /// If no alias is active, this is the same as [entityColName].
+  String get aliasedName => entityColName;
 
   /// Type system sugar. Implementations are likely to inherit from both
   /// [TableInfo] and [Tbl] and can thus just return their instance.
@@ -137,7 +137,7 @@ class _AliasResultSet<Tbl, Row> extends ResultSetImplementation<Tbl, Row> {
   }
 
   @override
-  String get entityName => _inner.entityName;
+  String get entityColName => _inner.entityColName;
 
   @override
   Row map(Map<String, dynamic> data, {String? tablePrefix}) {
@@ -154,10 +154,10 @@ extension NameWithAlias on ResultSetImplementation<dynamic, dynamic> {
   /// can be used in select statements, as it returns something like "users u"
   /// for a table called users that has been aliased as "u".
   String get tableWithAlias {
-    if (aliasedName == entityName) {
-      return entityName;
+    if (aliasedName == entityColName) {
+      return entityColName;
     } else {
-      return '$entityName $aliasedName';
+      return '$entityColName $aliasedName';
     }
   }
 }

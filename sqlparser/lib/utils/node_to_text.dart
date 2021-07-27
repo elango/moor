@@ -971,8 +971,8 @@ class NodeSqlBuilder extends AstVisitor<void, void> {
       _symbol('.');
       didWriteSpaceBefore = true;
     }
-    if (e.entityName != null) {
-      _identifier(e.entityName!,
+    if (e.entityColName != null) {
+      _identifier(e.entityColName!,
           spaceAfter: false, spaceBefore: !didWriteSpaceBefore);
       _symbol('.');
       didWriteSpaceBefore = true;
